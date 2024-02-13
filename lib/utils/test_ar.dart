@@ -41,11 +41,14 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
         });
   }
 
-  loadFile() {
+  loadFile() async {
     httpClient = HttpClient();
-    _downloadFile(
+    await _downloadFile(
         "https://github.com/KhronosGroup/glTF-Sample-Assets/raw/main/Models/Duck/glTF-Binary/Duck.glb",
         "LocalDuck.glb");
+    await _downloadFile(
+        "https://github.com/KhronosGroup/glTF-Sample-Assets/raw/main/Models/Lantern/glTF-Binary/Lantern.glb",
+        "Lantern.glb");
   }
 
   @override
@@ -58,14 +61,7 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Row(children: [
-            Text('Local & Web Objects'),
-            Image.asset(
-              'assets/models/Duck/DuckCM.png',
-              width: 10,
-              height: 10,
-            )
-          ]),
+          title: Text('Local & Web Objects'),
         ),
         body: Container(
             child: Stack(children: [
@@ -193,7 +189,7 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
       var newNode = ARNode(
           type: NodeType.webGLB,
           uri:
-              "https://github.com/KhronosGroup/glTF-Sample-Assets/blob/main/Models/SheenChair/glTF-Binary/SheenChair.glb",
+              "https://github.com/KhronosGroup/glTF-Sample-Assets/raw/main/Models/Lantern/glTF-Binary/Lantern.glb",
           scale: Vector3(0.2, 0.2, 0.2));
       bool? didAddWebNode = await this.arObjectManager!.addNode(newNode);
       this.webObjectNode = (didAddWebNode!) ? newNode : null;
@@ -207,7 +203,7 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
     } else {
       var newNode = ARNode(
           type: NodeType.fileSystemAppFolderGLB,
-          uri: 'LocalDuck.glb',
+          uri: 'Lantern.glb',
           scale: Vector3(0.2, 0.2, 0.2));
       //Alternative to use type fileSystemAppFolderGLTF2:
       //var newNode = ARNode(
