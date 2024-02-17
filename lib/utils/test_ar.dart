@@ -61,7 +61,7 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Local & Web Objects'),
+          title: Text('AR TIK'),
         ),
         body: Container(
             child: Stack(children: [
@@ -116,11 +116,13 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
     this.arObjectManager = arObjectManager;
 
     this.arSessionManager!.onInitialize(
-          showFeaturePoints: false,
+          showFeaturePoints: true,
           showPlanes: true,
           customPlaneTexturePath: "assets/images/triangle.png",
           showWorldOrigin: true,
           handleTaps: false,
+          handleRotation: true,
+          showAnimatedGuide: true,
         );
     this.arObjectManager!.onInitialize();
 
@@ -187,10 +189,11 @@ class _LocalAndWebObjectsWidgetState extends State<LocalAndWebObjectsWidget> {
       this.webObjectNode = null;
     } else {
       var newNode = ARNode(
-          type: NodeType.webGLB,
-          uri:
-              "https://github.com/KhronosGroup/glTF-Sample-Assets/raw/main/Models/Lantern/glTF-Binary/Lantern.glb",
-          scale: Vector3(0.2, 0.2, 0.2));
+        type: NodeType.webGLB,
+        uri:
+            "https://github.com/siopipin/augmented-reality-flutter/raw/main/models/mechanical_keyboard.glb",
+        scale: Vector3(0.5, 0.5, 0.5),
+      );
       bool? didAddWebNode = await this.arObjectManager!.addNode(newNode);
       this.webObjectNode = (didAddWebNode!) ? newNode : null;
     }
